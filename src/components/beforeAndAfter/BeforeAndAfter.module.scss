@@ -1,0 +1,218 @@
+.container {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  cursor: ew-resize;
+  user-select: none;
+  touch-action: none;
+  width: 100%;
+}
+
+.container.vertical {
+  cursor: ns-resize;
+}
+
+.inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Base image sits in normal flow to keep intrinsic height */
+.base {
+  position: relative;
+  width: 100%;
+  display: block;
+  line-height: 0; /* remove whitespace gap */
+}
+
+/* Overlay is absolutely positioned over base */
+.overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  z-index: 1; /* keep below labels & handle line */
+}
+
+/* Base image determines height (auto) and width 100% */
+.base img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Overlay image fills overlay container */
+.overlay img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+}
+
+.overlayContent {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  will-change: clip-path;
+}
+
+.handleLineWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.handleLine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: currentColor;
+  color: var(--once-color-neutral-strong);
+  pointer-events: none;
+  transition: background .2s ease;
+  z-index: 3;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.15), 0 0 0 2px rgba(255,255,255,0.25);
+}
+
+.vertical .handleLine {
+  left: 0;
+  right: 0;
+  height: 2px;
+  width: 100%;
+}
+
+.label {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(0,0,0,0.55);
+  color: white;
+  font-size: 12px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+  pointer-events: none;
+  user-select: none;
+  z-index: 2; /* ensure visible above overlay image */
+  
+}
+
+.label.after {
+  left: auto;
+  right: 12px;
+}
+
+/* Browser frame */
+.appFrame {
+  --background: #fff;
+  --bar-background: #f7f7f7 linear-gradient(to bottom, #f7f7f7, #f2f2f2);
+  --bar-height: 44px;
+  --border-color: #e3e3e3;
+  --border-radius: 8px;
+  --border-width: 1px;
+  --box-shadow: rgba(0, 0, 0, 0.08) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.03) 0px 4px 6px -2px;
+  --title-color: #222;
+  --title-size: 0.875em;
+  --title-weight: 600;
+  --url-background: #fff;
+  --url-color: #999;
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.appFrameBar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: var(--bar-height);
+  padding: 0 12px;
+  background: var(--bar-background);
+  border-bottom: 1px solid var(--border-color);
+  font-size: var(--title-size);
+  color: var(--title-color);
+}
+
+.appFrameButtons {
+  display: flex;
+  gap: 6px;
+  height: 100%;
+  align-items: center;
+}
+.appFrameButtons span {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ff5f56;
+  box-shadow: 20px 0 0 #ffbd2e, 40px 0 0 #27c93f;
+  position: relative;
+}
+.appFrameButtons span + span, .appFrameButtons span + span + span { display:none; }
+
+.appFrameTitle {
+  font-weight: var(--title-weight);
+  color: var(--title-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-left: 52px;
+}
+
+.appFrameUrl {
+  margin-left: auto;
+  background: var(--url-background);
+  border: var(--url-border-width) solid var(--border-color);
+  color: var(--url-color);
+  padding: 4px 10px;
+  border-radius: calc(var(--border-radius) * 0.6);
+  font-size: 0.75em;
+  max-width: 50%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.appFrameContent {
+  position: relative;
+  width: 100%;
+  padding: 0;
+  background: #000;
+}
+
+.appFrameDark {
+  --background: #101114;
+  --bar-background: #1c1d21 linear-gradient(to bottom, #1e1f23, #1a1b1f);
+  --border-color: #2a2b30;
+  --title-color: #e5e7eb;
+  --url-background: #1f2024;
+  --url-color: #9ca3af;
+  --box-shadow: rgba(0,0,0,0.6) 0 8px 28px -6px, rgba(0,0,0,0.4) 0 4px 10px -4px;
+  color: var(--title-color);
+}
